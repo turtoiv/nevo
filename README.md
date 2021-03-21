@@ -20,4 +20,4 @@ There are also some tests added, to run them go test -v <br>
 <H4> Benchmark </H4>
 The file benchmark.go contains the benchmark for both algorithms. It loops 10 times for each provider and computes the average for download and upload speed.
 
-To run the application : go build and go run <br>
+To run the application : go build and go run nevo <br>

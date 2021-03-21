@@ -29,16 +29,12 @@ type NetflixProvider struct {
 	uploadSpeed float64
 }
 
-func main() {
-	StartSpeedTest(3)
-}
-
 /* This function is exported from the library
 ** it provides the functionality to check the speed test
 * Param: providerType - which provider will be used to test the speed 
 */
 func StartSpeedTest(providerType ProviderType) error {
-	var provider Provider;
+	var provider Provider
 	if providerType != Ookla && providerType != Netflix {
 		fmt.Printf("unkown provider")
 		return errors.New("Unknown provider")
@@ -53,7 +49,7 @@ func StartSpeedTest(providerType ProviderType) error {
 
 	err := provider.getLinkSpeed()
 	if err == nil {
-		fmt.Printf("Download: %3.2f Mbps | Upload: %3.2f Mbps\n", provider.getDownloadSpeed(), provider.getUploadSpeed());
+		fmt.Printf("Download: %3.2f Mbps | Upload: %3.2f Mbps\n", provider.getDownloadSpeed(), provider.getUploadSpeed())
 	}
 
 	return err
@@ -120,12 +116,10 @@ func (nflProvider *NetflixProvider) getLinkSpeed() error {
 
 	go func() {
 		for Kbps := range KbpsChan {
-			fmt.Printf("%.2f Kbps %.2f Mbps\n", Kbps, Kbps/1000)
+			//fmt.Printf("%.2f Kbps %.2f Mbps\n", Kbps, Kbps/1000)
 			average += float64(Kbps)/float64(1000);
 			count++;
 		}
-
-		fmt.Println("done")
 	}()
 	err = fastCom.Measure(urls, KbpsChan)
 	nflProvider.downloadSpeed = float64(average)/float64(count);
